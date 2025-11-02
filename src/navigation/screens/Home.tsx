@@ -5,7 +5,11 @@ export function Home() {
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
+<<<<<<< HEAD
       <Text>Work In Progress!</Text>
+=======
+      <Text>Open up 'src/App.tsx' to start working on your app!</Text>
+>>>>>>> fad4e52 (Initial commit)
       <Button screen="Profile" params={{ user: 'jane' }}>
         Go to Profile
       </Button>

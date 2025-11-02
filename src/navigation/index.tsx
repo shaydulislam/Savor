@@ -70,7 +70,7 @@ const RootStack = createNativeStackNavigator({
       screen: Survey,
       options: {
         title: 'Intake Survey', // Customize as needed
-        // Add other options like headerShown: false if you want no header
+        // Add other options like headerShown: false if no header
       },
     },
     HomeTabs: {
