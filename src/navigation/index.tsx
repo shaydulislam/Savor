@@ -11,8 +11,11 @@ import newspaper from '../assets/newspaper.png';
 import { Home } from './screens/Home';
 import { Profile } from './screens/Profile';
 import { Settings } from './screens/Settings';
-import { Updates } from './screens/Updates';
+import Survey from './screens/Survey';
 import { NotFound } from './screens/NotFound';
+import RegisterScreen from './screens/RegisterScreen';
+import LoginScreen from './screens/LoginScreen';
+
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -32,26 +35,44 @@ const HomeTabs = createBottomTabNavigator({
         ),
       },
     },
-    Updates: {
-      screen: Updates,
+    
+  },
+});
+
+// AuthStack remains unchanged
+const AuthStack = createNativeStackNavigator({
+  screens: {
+    Login: {
+      screen: LoginScreen,
       options: {
-        tabBarIcon: ({ color, size }) => (
-          <Image
-            source={bell}
-            tintColor={color}
-            style={{
-              width: size,
-              height: size,
-            }}
-          />
-        ),
+        title: 'Login',
+      },
+    },
+    Register: {
+      screen: RegisterScreen,
+      options: {
+        title: 'Register',
       },
     },
   },
 });
 
+// Updated RootStack: Add Survey screen after AuthStack
 const RootStack = createNativeStackNavigator({
   screens: {
+    AuthStack: {
+      screen: AuthStack,
+      options: {
+        headerShown: false,
+      },
+    },
+    Survey: { // Add this new screen
+      screen: Survey,
+      options: {
+        title: 'Intake Survey', // Customize as needed
+        // Add other options like headerShown: false if you want no header
+      },
+    },
     HomeTabs: {
       screen: HomeTabs,
       options: {
