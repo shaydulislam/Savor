@@ -6,9 +6,7 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image } from 'react-native';
-import bell from '../assets/bell.png';
-import newspaper from '../assets/newspaper.png';
-import { Home } from './screens/Home';
+import Home  from './screens/Home';
 import { Profile } from './screens/Profile';
 import { Settings } from './screens/Settings';
 import Survey from './screens/Survey';
@@ -16,23 +14,13 @@ import { NotFound } from './screens/NotFound';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 
-
 const HomeTabs = createBottomTabNavigator({
   screens: {
     Home: {
       screen: Home,
       options: {
-        title: 'Feed',
-        tabBarIcon: ({ color, size }) => (
-          <Image
-            source={newspaper}
-            tintColor={color}
-            style={{
-              width: size,
-              height: size,
-            }}
-          />
-        ),
+        title: 'Home',
+        
       },
     },
     
@@ -41,6 +29,10 @@ const HomeTabs = createBottomTabNavigator({
 
 // AuthStack remains unchanged
 const AuthStack = createNativeStackNavigator({
+    screenOptions: {
+    headerShown: false, // Hide header by default globally
+    
+  },
   screens: {
     Login: {
       screen: LoginScreen,
@@ -59,6 +51,16 @@ const AuthStack = createNativeStackNavigator({
 
 // Updated RootStack: Add Survey screen after AuthStack
 const RootStack = createNativeStackNavigator({
+  screenOptions: {
+    headerShown: false, // Hide header by default globally
+    headerStyle: {
+      backgroundColor: '#e6f881',
+    },
+    headerTintColor: '#000',
+    headerTitleStyle: {
+      fontWeight: '600',
+    },
+  },
   screens: {
     AuthStack: {
       screen: AuthStack,
@@ -66,36 +68,31 @@ const RootStack = createNativeStackNavigator({
         headerShown: false,
       },
     },
-    Survey: { // Add this new screen
+    Survey: { 
       screen: Survey,
       options: {
-        title: 'Intake Survey', // Customize as needed
-        // Add other options like headerShown: false if no header
+        title: 'Intake Survey',
+        headerShown: true, // Enable for this screen
       },
     },
     HomeTabs: {
       screen: HomeTabs,
       options: {
         title: 'Home',
-        headerShown: false,
+        headerShown: true, // Enable for this screen
       },
     },
     Profile: {
       screen: Profile,
-      linking: {
-        path: ':user(@[a-zA-Z0-9-_]+)',
-        parse: {
-          user: (value) => value.replace(/^@/, ''),
-        },
-        stringify: {
-          user: (value) => `@${value}`,
-        },
+      options: {
+        headerShown: true, // Enable for this screen
       },
     },
     Settings: {
       screen: Settings,
       options: ({ navigation }) => ({
         presentation: 'modal',
+        headerShown: true, // Enable for this screen
         headerRight: () => (
           <HeaderButton onPress={navigation.goBack}>
             <Text>Close</Text>
@@ -107,9 +104,7 @@ const RootStack = createNativeStackNavigator({
       screen: NotFound,
       options: {
         title: '404',
-      },
-      linking: {
-        path: '*',
+        headerShown: true, // Enable for this screen
       },
     },
   },
